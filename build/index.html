@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Taller</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="ProjectName — описание">
+    <link rel="stylesheet" href="css/style.min.css">
+  </head>
+  <body>
+    <div class="visually-hidden"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs>
+<linearGradient id="paint0_linear_906_57223" x1="20" y1="20" x2="20" y2="12" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2C39F2"/>
+<stop offset="0.952647" stop-color="#6547C3" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_906_57223" x1="5" y1="14" x2="18" y2="13" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2C39F2"/>
+<stop offset="0.952647" stop-color="#6547C3" stop-opacity="0"/>
+</linearGradient>
+</defs><symbol id="icon-close" viewBox="0 0 20 20"><path d="M.293 18.291a1 1 0 101.414 1.414L10 11.413l8.292 8.292a1 1 0 101.414-1.414l-8.292-8.292 8.292-8.292A1 1 0 1018.291.293L9.999 8.585 1.707.293A1 1 0 10.293 1.707L8.585 10 .293 18.291z"/></symbol><symbol id="icon-loader" viewBox="0 0 24 24">
+<path d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12" stroke="url(#paint0_linear_906_57223)" stroke-width="2" stroke-linecap="round" fill="none"/>
+<path d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12" stroke="url(#paint1_linear_906_57223)" stroke-width="2" stroke-linecap="round" fill="none"/>
+<path d="M12 4C7.58172 4 4 7.58172 4 12" stroke="#2C39F2" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+</symbol></svg>
+    </div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="container"><span class="header__logo">Логотип</span>
+          <nav class="main-nav">
+            <button class="main-nav__toggle btn-reset" type="button" aria-label="Переключатель отображения меню" aria-pressed="false">
+              <svg width="20" height="20" aria-hidden="true">
+                <use xlink:href="#icon-burger"></use>
+              </svg>
+            </button>
+            <div class="main-nav__wrapper">
+              <ul class="main-nav__list">
+                <li class="main-nav__item"><span class="main-nav__link is-active">Главная</span>
+                </li>
+                <li class="main-nav__item"><a class="main-nav__link" href="#">Страница 2</a>
+                </li>
+                <li class="main-nav__item"><a class="main-nav__link" href="#">Страница 3</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <section class="section-ui" id="autocomplete">
+          <div class="container">
+            <h2>Инпут с автодополнением</h2>
+            <p>Дата атрибуты:
+              <ul>
+                <li><b>data-autocomplete</b> - отвечает за реализацию модуля</li>
+                <li><b>data-autocomplete-callback="name"</b> - коллбек получения данных, при завершии должен вызывать кастомное событие <b>'loadDataSuccess'</b>, задать свой коллбек можно в init-autocomplete.js в объекте callbacks, без аттрибута вызывается базовый коллбек.</li>
+                <li><b>data-multi-options</b> - реализует мультивыбор элементов, добавляет кнопку по которой можно вызвать список выбранных элементов, при его отсутствии данные вставляются в инпут.</li>
+                <li><b>data-error-msg="сообщение"</b> - для каждого экземпляра можно установить разное сообщение о результатах поиска, после инициализации аттрибут удаляется</li>
+              </ul>
+            </p>
+            <p>Инпут с мультивыбором c <b>data-multi-options</b></p>
+            <div class="custom-input" data-validate-type="text" data-autocomplete data-multi-options>
+              <label>
+                <svg class="custom-input__loader" width="24" height="24" aria-hidden="true">
+                  <use xlink:href="#icon-loader"></use>
+                </svg><span class="custom-input__label">Введите что-что</span>
+                <input type="text" placeholder="Выбор из списка" autocomplete="off">
+              </label>
+            </div>
+            <p>Пример вызова</p><code>+custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-multi-options)</code>
+            <p>Инпут с вставкой выбранного элемента в инпут без <b>data-multi-options</b></p>
+            <div class="custom-input" data-validate-type="text" data-autocomplete data-error-msg="Ничего не найдено">
+              <label>
+                <svg class="custom-input__loader" width="24" height="24" aria-hidden="true">
+                  <use xlink:href="#icon-loader"></use>
+                </svg><span class="custom-input__label">Введите что-что</span>
+                <input type="text" placeholder="Название локации" autocomplete="off">
+              </label>
+            </div>
+            <p>Пример вызова</p><code>+custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete)</code>
+            <p>Элемент с классом <b>autocomplete-menu</b> генерируется через js при успешной загрузке по событию <b>'loadDataSuccess'</b>, экземпляры классов вынесены в массив <b>window.autocomplete</b> <br>
+              Чтобы проверить работу введите в инпут любую латинскую букву. <br>
+              Для показа списка предлагаемых элементов, элементу <b>autocomplete-menu</b> добавляется класс <b>.is-active-options</b> <br>
+              Для показа списка выбранных элементов, элементу <b>autocomplete-menu</b> добавляется класс <b>.is-active-selected</b> <br>
+              Для показа ошибки при отсутсвии при совпадении, элементу <b>autocomplete-menu</b> добавляется класс <b>.is-missing</b> <br>
+              Для показа лоадера, элементу <b>custom-input</b> добавляется класс <b>.custom-input--has-loader</b> <br>
+              Для показа кнопки с выбранными элементами, элементу <b>custom-input</b> добавляется класс <b>.custom-input--has-counter-btn</b>
+              
+            </p>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div class="container"></div>
+      </footer>
+    </div>
+    <script src="js/vendor.min.js"></script>
+    <script src="js/main.min.js"></script>
+  </body>
+</html>
