@@ -116,6 +116,8 @@ block main
           a.header-ui__inner-link(href="#buttons", data-navigation-link) Buttons
         li.header-ui__inner-item
           a.header-ui__inner-link(href="#form-elements", data-navigation-link) Form elements
+        li.header-ui__inner-item
+          a.header-ui__inner-link(href="#autocomplete", data-navigation-link) Autocomplete
 
   main
     .container
@@ -177,11 +179,39 @@ block main
             +btn({text: "Сбросить форму", type: "reset"})
             +btn({text: "Отправить форму", type: "submit"})
 
+          section.section-ui(id="autocomplete")
+            h2 Инпут с автодополнением
+            p Дата атрибуты:
+              ul
+                li #[b data-autocomplete] - отвечает за реализацию модуля
+                li #[b data-autocomplete-callback="name"] - коллбек получения данных, при завершии должен вызывать кастомное событие #[b 'loadDataSuccess'], задать свой коллбек можно в init-autocomplete.js в объекте callbacks, без аттрибута вызывается базовый коллбек.
+                li #[b data-multi-options] - реализует мультивыбор элементов, добавляет кнопку по которой можно вызвать список выбранных элементов, при его отсутствии данные вставляются в инпут.
+                li #[b data-error-msg="сообщение"] - для каждого экземпляра можно установить разное сообщение о результатах поиска, после инициализации аттрибут удаляется
+
+            p Инпут с мультивыбором c #[b data-multi-options]
+            +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-multi-options)
+            p Пример вызова
+            code +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-multi-options)
+
+            p Инпут с вставкой выбранного элемента в инпут без #[b data-multi-options]
+            +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-error-msg="Ничего не найдено")
+            p Пример вызова
+            code +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete)
+
+            p.
+              Элемент с классом #[b autocomplete-menu] генерируется через js при успешной загрузке по событию #[b 'loadDataSuccess'], экземпляры классов вынесены в массив #[b window.autocomplete] #[br]
+              Чтобы проверить работу введите в инпут любую латинскую букву. #[br]
+              Для показа списка предлагаемых элементов, элементу #[b autocomplete-menu] добавляется класс #[b .is-active-options] #[br]
+              Для показа списка выбранных элементов, элементу #[b autocomplete-menu] добавляется класс #[b .is-active-selected] #[br]
+              Для показа ошибки при отсутсвии при совпадении, элементу #[b autocomplete-menu] добавляется класс #[b .is-missing] #[br]
+              Для показа лоадера, элементу #[b custom-input] добавляется класс #[b .custom-input--has-loader] #[br]
+              Для показа кнопки с выбранными элементами, элементу #[b custom-input] добавляется класс #[b .custom-input--has-counter-btn]
+
   script
     include ../../js/inline/ui-kit.js
 
 block modals
-  +modal("modal--feedback")(data-modal="feedback")
-    +modal-feedback()
-  +modal("modal--success modal--no-scale modal--fit-content")(data-modal="success")
-    +modal-success()
+  //- +modal("modal--feedback")(data-modal="feedback")
+  //-   +modal-feedback()
+  //- +modal("modal--success modal--no-scale modal--fit-content")(data-modal="success")
+  //-   +modal-success()

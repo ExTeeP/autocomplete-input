@@ -1,7 +1,7 @@
 extends ../components/base/layout
 
 block variables
-  - const title = "ProjectName" //- на страницах кроме главной используйте О нас — ProjectName
+  - const title = "Taller" //- на страницах кроме главной используйте О нас — ProjectName
   - const wrapperMods = ""
   - const hasHeader = true
   - const headerMods = ""
@@ -11,8 +11,33 @@ block variables
 
 block main
   main
-    //- на странице запрещен "голый" код
-    //- все блоки вставляются из папки pug/components/blocks
-    +intro()
+    section.section-ui(id="autocomplete")
+      .container
+        h2 Инпут с автодополнением
+        p Дата атрибуты:
+          ul
+            li #[b data-autocomplete] - отвечает за реализацию модуля
+            li #[b data-autocomplete-callback="name"] - коллбек получения данных, при завершии должен вызывать кастомное событие #[b 'loadDataSuccess'], задать свой коллбек можно в init-autocomplete.js в объекте callbacks, без аттрибута вызывается базовый коллбек.
+            li #[b data-multi-options] - реализует мультивыбор элементов, добавляет кнопку по которой можно вызвать список выбранных элементов, при его отсутствии данные вставляются в инпут.
+            li #[b data-error-msg="сообщение"] - для каждого экземпляра можно установить разное сообщение о результатах поиска, после инициализации аттрибут удаляется
+
+        p Инпут с мультивыбором c #[b data-multi-options]
+        +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Выбор из списка", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-multi-options)
+        p Пример вызова
+        code +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-multi-options)
+
+        p Инпут с вставкой выбранного элемента в инпут без #[b data-multi-options]
+        +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete, data-error-msg="Ничего не найдено")
+        p Пример вызова
+        code +custom-input({inputLabel: "Введите что-что", inputType: "text", inputPlaceholder: "Название локации", inputError: "", inputName: "", inputLoader: true, inputAutocomplete: 'off'})(data-validate-type="text", data-autocomplete)
+
+        p.
+          Элемент с классом #[b autocomplete-menu] генерируется через js при успешной загрузке по событию #[b 'loadDataSuccess'], экземпляры классов вынесены в массив #[b window.autocomplete] #[br]
+          Чтобы проверить работу введите в инпут любую латинскую букву. #[br]
+          Для показа списка предлагаемых элементов, элементу #[b autocomplete-menu] добавляется класс #[b .is-active-options] #[br]
+          Для показа списка выбранных элементов, элементу #[b autocomplete-menu] добавляется класс #[b .is-active-selected] #[br]
+          Для показа ошибки при отсутсвии при совпадении, элементу #[b autocomplete-menu] добавляется класс #[b .is-missing] #[br]
+          Для показа лоадера, элементу #[b custom-input] добавляется класс #[b .custom-input--has-loader] #[br]
+          Для показа кнопки с выбранными элементами, элементу #[b custom-input] добавляется класс #[b .custom-input--has-counter-btn]
 
 block modals

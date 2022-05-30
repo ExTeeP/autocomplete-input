@@ -1,5 +1,7 @@
 mixin custom-input(options = {})
   - const inputLabel = options.inputLabel ? options.inputLabel : false
+  - const inputIcon = options.inputIcon ? options.inputIcon : false
+  - const inputLoader = options.inputLoader ? options.inputLoader : false
   - const inputPlaceholder = options.inputPlaceholder ? options.inputPlaceholder : false
   - const inputError = options.inputError ? options.inputError : false
   - const inputType = options.inputType ? options.inputType : "text"
@@ -8,11 +10,16 @@ mixin custom-input(options = {})
   - const inputValue = options.inputValue ? options.inputValue : false
   - const inputMinLength = options.inputMinLength ? options.inputMinLength : false
   - const inputMaxLength = options.inputMaxLength ? options.inputMaxLength : false
+  - const inputAutocomplete = options.inputAutocomplete ? options.inputAutocomplete : false
 
   .custom-input&attributes(attributes)
     label
+      //- if inputIcon
+      //-   +icon(inputIcon, 24, 24).custom-input__icon
+      if inputLoader
+        +icon('icon-loader', 24, 24).custom-input__loader
       if inputLabel
         span.custom-input__label!=inputLabel
-      input(type=inputType, id=inputId, name=inputName, value=inputValue, minlength=inputMinLength, maxlength=inputMaxLength, placeholder=inputPlaceholder)
+      input(type=inputType, id=inputId, name=inputName, value=inputValue, minlength=inputMinLength, maxlength=inputMaxLength, placeholder=inputPlaceholder, autocomplete=inputAutocomplete)
     if inputError
       .custom-input__error!=inputError

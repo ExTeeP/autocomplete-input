@@ -1,0 +1,120 @@
+.autocomplete-menu {
+  padding: 4px 8px 4px 12px;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  min-height: 56px;
+  max-height: 200px;
+  right: 0;
+  top: calc(100% + 8px);
+  left: 0;
+  background-color: $color-default-white;
+  box-shadow: 0px 16px 32px rgba($color-default-black, 0.08), 0px 3px 8px rgba($color-default-black, 0.16);
+  border-radius: 12px;
+  z-index: 10;
+
+  &.is-active-options {
+    display: flex;
+
+    .autocomplete-menu__list--options {
+      display: block;
+    }
+  }
+
+  &.is-active-selected {
+    display: flex;
+
+    .autocomplete-menu__list--selected {
+      display: block;
+    }
+  }
+
+  &.is-missing {
+    display: flex;
+
+    .autocomplete-menu__error {
+      display: block;
+    }
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: none;
+    list-style: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-color: $color-neon-blue $color-transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      background-color: $color-transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-neon-blue;
+      border-radius: 100px;
+    }
+  }
+
+  &__list--selected {
+    .autocomplete-menu__item {
+      padding-right: 38px;
+    }
+  }
+
+  &__item {
+    padding: 8px 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  &__btn-delete {
+    margin: 0;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    border: none;
+    background-color: $color-transparent;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+  }
+
+  &__error {
+    margin: 0;
+    align-self: center;
+    display: none;
+    text-align: center;
+    font-size: 12px;
+    line-height: 12px;
+    color: $color-neon-blue;
+  }
+
+  &__head-label {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 12px;
+    color: $color-neon-blue;
+  }
+
+  &__value {
+    font-size: 14px;
+    line-height: 14px;
+  }
+}
